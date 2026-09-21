@@ -1,1 +1,0 @@
-# AmaarOS
