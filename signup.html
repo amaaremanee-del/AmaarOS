@@ -6,77 +6,79 @@
   <style>
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
+      background: url('wallpaper.jpg') center/cover no-repeat fixed;
       height: 100vh;
-      overflow: hidden;
-      background: #020617;
-      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui;
     }
 
-    .center-box {
-      width: 300px;
-      background: #0f172a;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    .box {
+      width: 320px;
+      padding: 25px;
+      border-radius: 16px;
+      backdrop-filter: blur(20px);
+      background: rgba(15, 23, 42, 0.6);
+      color: white;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     input {
       width: 100%;
-      padding: 8px;
-      margin-top: 6px;
-      margin-bottom: 12px;
-      border-radius: 6px;
-      border: 1px solid #1f2937;
-      background: #020617;
-      color: #e5e7eb;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
     }
 
     button {
       width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      border-radius: 8px;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 10px;
       border: none;
       background: #3b82f6;
       color: white;
+      font-size: 15px;
       cursor: pointer;
-      font-size: 14px;
-    }
-
-    button.secondary {
-      background: #1f2937;
     }
 
     a {
-      color: #3b82f6;
+      color: #93c5fd;
     }
   </style>
 </head>
 <body>
 
-  <div class="center-box">
+  <div class="box">
     <h2>Create Account</h2>
 
-    <label>Email</label>
-    <input id="email">
-
-    <label>Password</label>
-    <input id="password" type="password">
+    <input id="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
 
     <button id="signupBtn">Create Account</button>
-    <button class="secondary" onclick="location.href='login.html'">Back</button>
+
+    <p style="margin-top:10px;">
+      <a href="login.html">Back</a>
+    </p>
 
     <p id="status"></p>
   </div>
 
   <script type="module">
-    import { auth } from "./firebase.js";
-    import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import {
+      auth,
+      createUserWithEmailAndPassword
+    } from "./firebase.js";
 
     const email = document.getElementById("email");
     const password = document.getElementById("password");
@@ -89,7 +91,7 @@
         .then(() => {
           status.textContent = "Account created! Redirecting...";
           setTimeout(() => {
-            location.href = "login.html";
+            location.href = "desktop.html";
           }, 800);
         })
         .catch(err => {

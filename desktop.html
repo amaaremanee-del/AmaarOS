@@ -1,171 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>AmaarOS Desktop</title>
-
-  <style>
-    body {
-      margin: 0;
-      background: #1a1a1a;
-      font-family: Arial, sans-serif;
-      color: white;
-      overflow: hidden;
-    }
-
-    /* Top bar */
-    .top-bar {
-      width: 100%;
-      height: 45px;
-      background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 15px;
-      font-size: 15px;
-      border-bottom: 1px solid #222;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      width: 80px;
-      height: calc(100vh - 45px);
-      background: #181818;
-      position: fixed;
-      top: 45px;
-      left: 0;
-      display: flex;
-      flex-direction: column;
-      padding-top: 15px;
-      gap: 20px;
-      align-items: center;
-      border-right: 1px solid #222;
-    }
-
-    .app-icon {
-      width: 50px;
-      height: 50px;
-      background: #2a2a2a;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 24px;
-      transition: 0.2s;
-    }
-
-    .app-icon:hover {
-      background: #3a3a3a;
-    }
-
-    #logoutBtn {
-      background: #ff4444;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="top-bar">
-    <div id="userDisplay">Loading user...</div>
-    <div id="logoutBtn">Logout</div>
-  </div>
-
-  <div class="sidebar">
-    <div class="app-icon">⚙️</div>
-    <div class="app-icon">📁</div>
-    <div class="app-icon">🕹️</div>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth();
-
-    const userDisplay = document.getElementById("userDisplay");
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    // 🔥 Detect logged-in user
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        userDisplay.textContent = "Logged in as: " + user.email;
-      } else {
-        // ⭐ RELATIVE PATH — works in ANY folder
-        window.location.href = "login.html";
-      }
-    });
-
-    // 🔥 Logout button
-    logoutBtn.addEventListener("click", () => {
-      signOut(auth).then(() => {
-        window.location.href = "login.html";
-      });
-    });
-  </script>
-
-</body>
-</html>
 <script type="module">
-    import { auth, onAuthStateChanged } from "./firebase.js";
+  import { auth, onAuthStateChanged, signOut } from "./firebase.js";
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "/Amaar%20Emanee%27s%20website/login.html";
-        }
-    });
-</script><script type="module">
-    import { auth, onAuthStateChanged } from "./firebase.js";
+  // Show loading screen
+  document.body.innerHTML += `
+    <div id="loading" style="
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-family: system-ui;
+    ">Loading AmaarOS...</div>
+  `;
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "/AmaarOS/login.html";
-        }
-    });
-</script><script type="module">
-    import { auth, onAuthStateChanged } from "./firebase.js";
+  onAuthStateChanged(auth, (user) => {
+    // Firebase finished loading → remove loading screen
+    document.getElementById("loading").remove();
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "/Amaar%20Emanee%27s%20Website/login.html";
-        }
-    });
-</script><script type="module">
-    import { auth, onAuthStateChanged } from "./firebase.js";
+    if (!user) {
+      // User NOT logged in → redirect
+      location.href = "login.html";
+    }
+  });
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "/AmaarOS/login.html";
-        }
+  function logout() {
+    signOut(auth).then(() => {
+      location.href = "login.html";
     });
-</script><script type="module">
-    import { auth, onAuthStateChanged } from "./firebase.js";
+  }
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "/AmaarOS/Amaar%20Emanee%27s%20Website/login.html";
-        }
-    });
-</script><script type="module">
-    import { auth, onAuthStateChanged } from "./firebase.js";
+  function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").textContent = now.toLocaleTimeString();
+  }
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            window.location.href = "/AmaarOS/Amaar%20Emanee%27s%20Website/login.html";
-        }
-    });
+  setInterval(updateClock, 1000);
+  updateClock();
 </script>
