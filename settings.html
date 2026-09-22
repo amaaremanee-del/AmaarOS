@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AmaarOS Settings</title>
+  <style>
+    body {
+      margin: 0;
+      background: #141414;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .section {
+      margin-top: 20px;
+      padding: 15px;
+      background: #1f1f1f;
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    input[type="file"] {
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Settings</h1>
+
+  <div class="section">
+    <h3>Wallpaper</h3>
+    <label>Change wallpaper (placeholder for now):</label>
+    <input type="file" id="wallpaper" accept="image/*">
+  </div>
+
+  <div class="section">
+    <h3>Theme</h3>
+    <p>Theme switching coming soon.</p>
+  </div>
+
+  <script>
+    document.getElementById('wallpaper').addEventListener('change', () => {
+      alert('Wallpaper change feature will be added later.');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AmaarOS</title>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: system-ui;
+      overflow: hidden;
+    }
+
+    .boot {
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .boot h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .boot p {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="boot">
+    <h1>AmaarOS</h1>
+    <p>Loading system...</p>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      location.href = "login.html";
+    }, 1500);
+  </script>
+
+</body>
+</html>
